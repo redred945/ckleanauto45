@@ -116,11 +116,11 @@
 
   a:focus-visible, .btn:focus-visible, button:focus-visible { outline: 2px solid var(--green-hi); outline-offset: 3px; }
 
-  /* reveal — progressive: only active when JS adds .reveal-on to <html>.
-     A load-time failsafe forces every .reveal visible, so content is never stuck hidden. */
-  .reveal-on .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal-on .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal-on .reveal { opacity: 1 !important; transform: none !important; transition: none; } }
+  /* reveal — content is ALWAYS fully visible; JS only adds a gentle rise on scroll-in.
+     Opacity never drops, so nothing can get stuck hidden if JS/IO fails. */
+  .reveal-on .reveal { transform: translateY(14px); transition: transform .55s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+  .reveal-on .reveal.in { transform: none; will-change: auto; }
+  @media (prefers-reduced-motion: reduce) { .reveal-on .reveal { transform: none !important; transition: none; } }
 
   /* ---------- header ---------- */
   header.bar { position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
