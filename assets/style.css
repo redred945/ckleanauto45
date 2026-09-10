@@ -81,8 +81,8 @@ a:focus-visible, .btn:focus-visible, button:focus-visible, summary:focus-visible
 @media (prefers-reduced-motion: reduce) { .reveal-on .reveal { transform: none !important; transition: none; } }
 
 /* ---------- header (dark) ---------- */
-header.bar { position: sticky; top: 0; z-index: 40; background: rgba(14,19,16,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background .25s ease, border-color .25s ease, padding .25s ease; }
-.bar__in { display: flex; align-items: center; gap: 1.5rem; padding-block: 0.7rem; transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, border-radius .25s ease, max-width .25s ease, padding .25s ease; }
+header.bar { position: sticky; top: 0; z-index: 40; background: rgba(14,19,16,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background .5s cubic-bezier(.22,.61,.36,1), border-color .5s cubic-bezier(.22,.61,.36,1), padding .5s cubic-bezier(.22,.61,.36,1); }
+.bar__in { display: flex; align-items: center; gap: 1.5rem; padding-block: 0.7rem; transition: background .5s cubic-bezier(.22,.61,.36,1), border-color .5s cubic-bezier(.22,.61,.36,1), box-shadow .5s cubic-bezier(.22,.61,.36,1), border-radius .5s cubic-bezier(.22,.61,.36,1), gap .5s cubic-bezier(.22,.61,.36,1), padding .5s cubic-bezier(.22,.61,.36,1); }
 /* detached once scrolled — becomes a centered rounded "dynamic island" that keeps the nav */
 header.bar.is-float { background: transparent; border-bottom-color: transparent; padding-top: 0.65rem; }
 header.bar.is-float .bar__in {
@@ -101,15 +101,15 @@ header.bar.is-float .bar__tel { display: none; }
 header.bar.is-float .bar__nav { gap: 1.1rem; }
 header.bar.is-float .bar__nav a { font-size: 0.78rem; padding-block: 0.2rem; }
 header.bar.is-float .bar__cta { padding-block: 0.68rem; padding-inline: 1.25rem; }
-@media (prefers-reduced-motion: reduce) { header.bar, .bar__in { transition: none; } }
 .bar__brand { display: flex; align-items: center; text-decoration: none; margin-right: auto; }
-.bar__brand img { height: 44px; width: auto; }
-.bar__nav { display: flex; gap: 1.7rem; }
-.bar__nav a { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; text-decoration: none; color: var(--on-dark-mid); padding-block: 0.3rem; border-bottom: 2px solid transparent; transition: color .18s, border-color .18s; }
+.bar__brand img { height: 44px; width: auto; transition: height .5s cubic-bezier(.22,.61,.36,1); }
+.bar__nav { display: flex; gap: 1.7rem; transition: gap .5s cubic-bezier(.22,.61,.36,1); }
+.bar__nav a { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; text-decoration: none; color: var(--on-dark-mid); padding-block: 0.3rem; border-bottom: 2px solid transparent; transition: color .18s, border-color .18s, font-size .5s cubic-bezier(.22,.61,.36,1), padding .5s cubic-bezier(.22,.61,.36,1); }
 .bar__nav a:hover, .bar__nav a[aria-current="page"] { color: var(--on-dark); border-color: var(--green-hi); }
 .bar__tel { font-family: var(--ff-display); font-weight: 800; font-size: 1rem; text-decoration: none; color: var(--on-dark); white-space: nowrap; display: inline-flex; align-items: center; gap: 0.4em; }
 .bar__tel svg { width: 15px; height: 15px; fill: var(--green-hi); }
-.bar__cta { white-space: nowrap; }
+.bar__cta { white-space: nowrap; transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease, padding .5s cubic-bezier(.22,.61,.36,1); }
+@media (prefers-reduced-motion: reduce) { header.bar, .bar__in, .bar__brand img, .bar__nav, .bar__nav a, .bar__cta { transition: none; } }
 .bar__burger { display: none; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.25); background: transparent; border-radius: 999px; cursor: pointer; align-items: center; justify-content: center; }
 .bar__burger span, .bar__burger span::before, .bar__burger span::after { content: ""; display: block; width: 18px; height: 2px; background: var(--on-dark); position: relative; }
 .bar__burger span::before { position: absolute; top: -6px; }
@@ -149,14 +149,14 @@ header.bar.is-float .bar__cta { padding-block: 0.68rem; padding-inline: 1.25rem;
 
 /* ---------- page hero (sub-pages) ---------- */
 .phero { background: var(--dark); color: var(--on-dark); border-bottom: 1px solid rgba(255,255,255,0.1); }
-.phero__in { padding-block: clamp(3.2rem, 7vw, 5.5rem); display: grid; gap: clamp(1.35rem, 2.4vw, 1.95rem); max-width: 46rem; }
-.crumb { font-size: 0.78rem; color: var(--on-dark-mid); display: flex; gap: 0.45em; flex-wrap: wrap; margin-bottom: clamp(0.5rem, 2vw, 1.3rem); }
+.phero__in { padding: clamp(4.2rem, 8.5vw, 7.5rem) 0 clamp(1.8rem, 4.5vw, 2.8rem); display: grid; gap: clamp(1.7rem, 3.2vw, 2.6rem); max-width: 46rem; }
+.crumb { font-size: 0.78rem; color: var(--on-dark-mid); display: flex; gap: 0.45em; flex-wrap: wrap; margin-bottom: clamp(0.7rem, 2.4vw, 1.6rem); }
 .crumb a { color: var(--on-dark-mid); text-decoration: none; }
 .crumb a:hover { color: var(--on-dark); }
 .phero .label { color: var(--green-hi); }
-.phero h1 { font-size: clamp(2.1rem, 4.8vw, 3.5rem); font-weight: 900; letter-spacing: -0.025em; line-height: 1.08; }
-.phero > .phero__in > p { color: var(--on-dark-mid); font-size: var(--fs-lead); max-width: 44ch; }
-.phero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: clamp(0.7rem, 2vw, 1.35rem); }
+.phero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 900; letter-spacing: -0.025em; line-height: 1.16; }
+.phero > .phero__in > p { color: var(--on-dark-mid); font-size: var(--fs-lead); max-width: 46ch; line-height: 1.66; }
+.phero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: clamp(1.1rem, 2.8vw, 2rem); }
 
 /* ---------- stats (graphic hairline grid) ---------- */
 .stats { background: var(--dark); color: var(--on-dark); }
@@ -185,9 +185,10 @@ section { padding-block: clamp(3.75rem, 8vw, 7rem); }
 .head--center { max-width: 46ch; margin-inline: auto; justify-items: center; text-align: center; }
 
 /* thin context strip — replaces a full "how it works" block on secondary pages */
-.strip { display: flex; flex-wrap: wrap; gap: 0.55rem 1.7rem; align-items: center; border-block: 1px solid var(--line); padding-block: 0.95rem; font-size: 0.85rem; color: var(--mid); }
+/* context strip — sits inside the dark hero, at its foot */
+.strip { display: flex; flex-wrap: wrap; gap: 0.6rem 1.9rem; align-items: center; border-top: 1px solid rgba(255,255,255,0.12); padding: clamp(1.5rem, 3.6vw, 2.2rem) 0 clamp(1.7rem, 4vw, 2.6rem); font-size: 0.82rem; color: var(--on-dark-mid); }
 .strip span { display: inline-flex; align-items: center; gap: 0.55em; }
-.strip span::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.strip span::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--green-hi); }
 
 /* discrete "see also" line near the footer — replaces the 3 big cross-link cards */
 .also { display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; align-items: baseline; border-top: 1px solid var(--line); padding-top: 1.6rem; font-size: 0.92rem; color: var(--mid); }

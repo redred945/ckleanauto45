@@ -66,7 +66,7 @@
 
   var bar = document.querySelector('header.bar');
   if (bar) {
-    var onScroll = function () { bar.classList.toggle('is-float', window.scrollY > 14); };
+    var onScroll = function () { bar.classList.toggle('is-float', window.scrollY > 60); };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
   }
