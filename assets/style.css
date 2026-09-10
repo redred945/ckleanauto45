@@ -299,11 +299,16 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
 .g { border-top: 3px solid var(--green); padding-top: 1rem; display: grid; gap: 0.45rem; }
 .g h3 { font-size: 1.02rem; font-weight: 800; }
 .g p { font-size: 0.88rem; color: var(--mid); }
-@media (max-width: 860px) { .why { grid-template-columns: 1fr; } .guarantees { grid-template-columns: 1fr; } }
+@media (max-width: 860px) {
+  .why { grid-template-columns: 1fr; gap: 1.9rem; }
+  .why__text { gap: 1.25rem; }
+  .guarantees { grid-template-columns: 1fr; gap: 1.6rem; margin-top: clamp(1.9rem, 6vw, 2.6rem); }
+  .g { padding-top: 1.2rem; }
+}
 
 .split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(1.5rem, 3.5vw, 2.75rem); align-items: center; }
 .split--rev .split__media { order: 2; }
-@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .split--rev .split__media { order: -1; } }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .split--rev .split__media { order: -1; } .prose { gap: 1.15rem; } }
 
 /* ---------- prose ---------- */
 .prose { display: grid; gap: 0.95rem; max-width: 68ch; }
@@ -381,6 +386,18 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
 .review p { font-size: 0.97rem; line-height: 1.68; }
 .review cite { font-style: normal; font-size: 0.8rem; font-weight: 700; color: var(--mid); letter-spacing: 0.03em; padding-top: 0.2rem; border-top: 1px solid var(--line); }
 @media (max-width: 900px) { .reviews { grid-template-columns: 1fr; } }
+/* phones: reviews become a swipeable slider */
+@media (max-width: 640px) {
+  .reviews {
+    display: flex; grid-template-columns: none;
+    gap: 0.85rem; padding-bottom: 0.4rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .reviews::-webkit-scrollbar { display: none; }
+  .reviews > .review { flex: 0 0 87%; scroll-snap-align: start; }
+}
 
 /* ---------- faq ---------- */
 .faq { display: grid; max-width: 74ch; border-top: 1px solid var(--line); }
