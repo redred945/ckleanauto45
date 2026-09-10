@@ -1,14 +1,22 @@
 (function () {
-  // splash screen — fades out after load, with a hard failsafe
+  // splash screen — first visit of the session only, fades out after load
   var splash = document.getElementById('splash');
   if (splash) {
-    var killSplash = function () {
-      if (splash.classList.contains('is-gone')) return;
-      splash.classList.add('is-gone');
-      setTimeout(function () { if (splash && splash.parentNode) splash.parentNode.removeChild(splash); }, 600);
-    };
-    window.addEventListener('load', function () { setTimeout(killSplash, 350); });
-    setTimeout(killSplash, 2600);
+    var splashSeen = false;
+    try { splashSeen = sessionStorage.getItem('ck_splash') === '1'; } catch (e) {}
+    var dropSplash = function () { if (splash && splash.parentNode) splash.parentNode.removeChild(splash); };
+    if (splashSeen) {
+      dropSplash();
+    } else {
+      try { sessionStorage.setItem('ck_splash', '1'); } catch (e) {}
+      var killSplash = function () {
+        if (splash.classList.contains('is-gone')) return;
+        splash.classList.add('is-gone');
+        setTimeout(dropSplash, 600);
+      };
+      window.addEventListener('load', function () { setTimeout(killSplash, 350); });
+      setTimeout(killSplash, 2600);
+    }
   }
 
   // price simulator (home)
