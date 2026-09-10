@@ -47,6 +47,8 @@
 </head>
 <body>
 
+<div id="splash" aria-hidden="true"><img class="splash__logo" src="assets/logo.png" alt="" width="288" height="169" /></div>
+
 <header class="bar">
   <div class="wrap bar__in">
     <a class="bar__brand" href="/" aria-label="CKLEAN AUTO 45 — accueil"><img src="assets/logo.png" alt="CKLEAN AUTO 45" width="240" height="141" /></a>
@@ -56,13 +58,13 @@
       <a href="lustrage-polissage.html">Lustrage</a>
       <a href="protection-ceramique.html">Céramique</a>
       <a href="#avis">Avis</a>
-      <a href="#contact">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <a class="bar__tel" href="tel:+33651943179">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"/></svg>
       06 51 94 31 79
     </a>
-    <a class="btn bar__cta" href="#contact">Demander un devis</a>
+    <a class="btn bar__cta" href="contact.html">Demander un devis</a>
     <button class="bar__burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
@@ -77,7 +79,7 @@
         <h1>Votre voiture nettoyée <em>à&nbsp;la&nbsp;vapeur</em>. Chez&nbsp;vous.</h1>
         <p class="hero__sub">Intérieur, extérieur, lustrage et protection céramique Gtechniq. On se déplace à votre domicile ou sur votre lieu de travail, sur rendez-vous.</p>
         <div class="hero__actions">
-          <a class="btn btn--lg" href="#contact">Demander un devis</a>
+          <a class="btn btn--lg" href="contact.html">Demander un devis</a>
           <a class="btn btn--ghost btn--lg" href="tel:+33651943179">06 51 94 31 79</a>
         </div>
         <div class="hero__proof"><span class="stars">★★★★★</span> <b>5,0</b> sur 139 avis Google</div>
@@ -103,6 +105,13 @@
         <div class="stat"><b>100<span class="u">%</span></b><span>à domicile ou sur le lieu de travail</span></div>
         <div class="stat"><b>9<span class="u">ans</span></b><span>de protection céramique Gtechniq</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap statement__in reveal">
+      <p>Une voiture vraiment propre, ça ne se voit pas : <em>ça se ressent</em> dès qu'on ouvre la portière.</p>
+      <span>Plus d'odeur de renfermé, plus de poussière sur le tableau de bord, plus de miettes dans les rails de siège. Juste l'impression de remonter dans une voiture neuve — chaque matin.</span>
     </div>
   </section>
 
@@ -153,7 +162,8 @@
 
   <section id="vapeur" class="sec--alt">
     <div class="wrap">
-      <div class="head head--wide reveal">
+      <div class="head reveal">
+        <p class="label">Pourquoi la vapeur</p>
         <h2>Vos sièges sont-ils vraiment propres ?</h2>
       </div>
       <div class="why reveal">
@@ -214,10 +224,51 @@
     </div>
   </section>
 
+  <section id="estimation" class="sec--alt">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="label">Estimation en ligne</p>
+        <h2>Composez votre prestation</h2>
+        <p>Choisissez votre formule, votre véhicule et vos options : le prix indicatif se met à jour en direct.</p>
+      </div>
+      <form class="estim reveal" id="estim">
+        <div class="estim__fields">
+          <fieldset class="estim__group">
+            <legend>Formule intérieur</legend>
+            <label class="opt"><input type="radio" name="formule" value="simple" checked /> <span>Intérieur simple</span><b>dès 50 €</b></label>
+            <label class="opt"><input type="radio" name="formule" value="shampoing" /> <span>Intérieur + shampoing vapeur</span><b>dès 70 €</b></label>
+          </fieldset>
+          <fieldset class="estim__group">
+            <legend>Votre véhicule</legend>
+            <label class="opt"><input type="radio" name="vehicule" value="0" checked /> <span>Citadine · cabine utilitaire</span></label>
+            <label class="opt"><input type="radio" name="vehicule" value="10" /> <span>SUV · break</span></label>
+            <label class="opt"><input type="radio" name="vehicule" value="20" /> <span>4×4 · monospace 5 places</span></label>
+            <label class="opt"><input type="radio" name="vehicule" value="30" /> <span>4×4 · monospace 7 places</span></label>
+          </fieldset>
+          <fieldset class="estim__group">
+            <legend>Options</legend>
+            <label class="opt"><input type="checkbox" name="opt" value="5" /> <span>Siège bébé</span><b>+5 €</b></label>
+            <label class="opt"><input type="checkbox" name="opt" value="10" /> <span>Plafonnier &amp; pare-soleil</span><b>+10 €</b></label>
+            <label class="opt"><input type="checkbox" name="opt" value="15" /> <span>Bloc moteur</span><b>+15 €</b></label>
+            <label class="opt"><input type="checkbox" name="opt" value="20" /> <span>Jantes ×4</span><b>+20 €</b></label>
+            <label class="opt"><input type="checkbox" name="opt" value="30" /> <span>Shampoing vapeur 4 sièges</span><b>+30 €</b></label>
+          </fieldset>
+        </div>
+        <aside class="estim__result">
+          <p class="estim__rlabel">Votre estimation</p>
+          <p class="estim__price"><span id="estimPrice">50</span> €<small>prix indicatif TTC, hors déplacement</small></p>
+          <p class="estim__note">Le tarif définitif est confirmé au devis, selon l'état réel du véhicule (poils d'animaux, taches anciennes, véhicule très encrassé).</p>
+          <a class="btn btn--lg" href="contact.html">Demander ce devis</a>
+          <a class="estim__tel" href="tel:+33651943179">ou nous appeler au 06 51 94 31 79</a>
+        </aside>
+      </form>
+    </div>
+  </section>
+
   <section id="tarifs">
     <div class="wrap">
       <div class="head reveal">
-        <p class="label">Tarifs</p>
+        <p class="label">Le détail des forfaits</p>
         <h2>Nettoyage intérieur : 2 forfaits clairs</h2>
         <p>Prix TTC, hors frais éventuels de déplacement. Ils peuvent varier selon l'état du véhicule — au moindre doute, appelez-nous.</p>
       </div>
@@ -295,8 +346,10 @@
 
   <section id="avis">
     <div class="wrap">
-      <div class="head head--wide reveal">
-        <h2>139 avis, 5,0 sur 5 sur Google</h2>
+      <div class="head reveal">
+        <p class="label">Avis clients</p>
+        <h2>139 avis, 5,0 sur 5</h2>
+        <p>Sur la fiche Google Business de CKLEAN AUTO 45 — sans un seul avis sous 5 étoiles.</p>
       </div>
       <div class="rating-head reveal">
         <span class="big">5,0</span>
@@ -326,11 +379,11 @@
 
   <section id="faq" class="sec--alt">
     <div class="wrap">
-      <div class="head reveal">
+      <div class="head head--center reveal">
         <p class="label">Questions fréquentes</p>
         <h2>Ce qu'on nous demande le plus souvent</h2>
       </div>
-      <div class="faq reveal">
+      <div class="faq faq--center reveal">
         <details>
           <summary>Vous intervenez vraiment à domicile ?</summary>
           <p>Oui. On se déplace à votre domicile ou sur votre lieu de travail, sur rendez-vous, avec tout le matériel. Notre système à la vapeur est autonome : pas besoin d'un gros point d'eau ni d'un branchement particulier.</p>
@@ -394,7 +447,7 @@
         <a href="nettoyage-interieur-domicile.html">Nettoyage intérieur &amp; tarifs</a>
         <a href="lustrage-polissage.html">Lustrage &amp; polissage</a>
         <a href="protection-ceramique.html">Protection céramique</a>
-        <a href="#contact">Contact</a>
+        <a href="contact.html">Contact</a>
         <a href="mentions-legales.html">Mentions légales</a>
       </nav>
     </div>

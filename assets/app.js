@@ -1,4 +1,32 @@
 (function () {
+  // splash screen — fades out after load, with a hard failsafe
+  var splash = document.getElementById('splash');
+  if (splash) {
+    var killSplash = function () {
+      if (splash.classList.contains('is-gone')) return;
+      splash.classList.add('is-gone');
+      setTimeout(function () { if (splash && splash.parentNode) splash.parentNode.removeChild(splash); }, 600);
+    };
+    window.addEventListener('load', function () { setTimeout(killSplash, 350); });
+    setTimeout(killSplash, 2600);
+  }
+
+  // price simulator (home)
+  var estim = document.getElementById('estim');
+  if (estim) {
+    var out = document.getElementById('estimPrice');
+    var calc = function () {
+      var f = estim.querySelector('input[name="formule"]:checked');
+      var v = estim.querySelector('input[name="vehicule"]:checked');
+      var total = (f && f.value === 'shampoing') ? 70 : 50;
+      total += v ? Number(v.value) : 0;
+      Array.prototype.forEach.call(estim.querySelectorAll('input[name="opt"]:checked'), function (c) { total += Number(c.value); });
+      if (out) out.textContent = total;
+    };
+    estim.addEventListener('change', calc);
+    calc();
+  }
+
   var bar = document.querySelector('header.bar');
   if (bar) {
     var onScroll = function () { bar.classList.toggle('is-float', window.scrollY > 14); };
