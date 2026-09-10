@@ -19,6 +19,28 @@
     }
   }
 
+  // smooth page-to-page transitions — fade content out on leave, in on arrive
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+      if (a.protocol !== 'http:' && a.protocol !== 'https:') return;
+      if (a.origin !== location.origin) return;
+      // pure in-page anchor (same path) — let the browser scroll
+      if (a.pathname === location.pathname && a.search === location.search && a.hash) return;
+      if (a.href === location.href) return;
+      e.preventDefault();
+      var url = a.href;
+      document.documentElement.classList.add('is-leaving');
+      setTimeout(function () { window.location.href = url; }, 210);
+    });
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) document.documentElement.classList.remove('is-leaving');
+    });
+  }
+
   // price simulator (home)
   var estim = document.getElementById('estim');
   if (estim) {

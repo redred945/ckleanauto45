@@ -38,17 +38,15 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-/* soft cross-fade between pages: native where supported, opacity fade-in elsewhere */
-@view-transition { navigation: auto; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: .32s; }
-@keyframes pageFade { from { opacity: 0; } }
-@supports not (view-transition-name: none) {
-  @media (prefers-reduced-motion: no-preference) {
-    main, footer { animation: pageFade .34s ease both; }
+/* transitions between pages — the content cross-fades, the header stays put */
+@keyframes pageFade { from { opacity: 0; transform: translateY(7px); } }
+@media (prefers-reduced-motion: no-preference) {
+  main, footer { animation: pageFade .42s cubic-bezier(.22,.61,.36,1) both; }
+  html.is-leaving main, html.is-leaving footer {
+    opacity: 0; transform: translateY(-5px);
+    transition: opacity .22s ease, transform .22s ease;
+    animation: none;
   }
-}
-@media (prefers-reduced-motion: reduce) {
-  @view-transition { navigation: none; }
 }
 
 body {
