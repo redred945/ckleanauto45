@@ -149,14 +149,30 @@ header.bar.is-float .bar__cta { padding-block: 0.68rem; padding-inline: 1.25rem;
 
 /* ---------- page hero (sub-pages) ---------- */
 .phero { background: var(--dark); color: var(--on-dark); border-bottom: 1px solid rgba(255,255,255,0.1); }
-.phero__in { padding: clamp(4.2rem, 8.5vw, 7.5rem) 0 clamp(1.8rem, 4.5vw, 2.8rem); display: grid; gap: clamp(1.7rem, 3.2vw, 2.6rem); max-width: 46rem; }
-.crumb { font-size: 0.78rem; color: var(--on-dark-mid); display: flex; gap: 0.45em; flex-wrap: wrap; margin-bottom: clamp(0.7rem, 2.4vw, 1.6rem); }
+.crumb { font-size: 0.78rem; color: var(--on-dark-mid); display: flex; gap: 0.45em; flex-wrap: wrap; }
 .crumb a { color: var(--on-dark-mid); text-decoration: none; }
 .crumb a:hover { color: var(--on-dark); }
 .phero .label { color: var(--green-hi); }
-.phero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 900; letter-spacing: -0.025em; line-height: 1.16; }
+.phero h1 { font-size: clamp(1.95rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.14; }
+.phero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.3rem; }
+
+/* legal / utility pages — single column */
+.phero__in { padding: clamp(3.6rem, 8vw, 6rem) 0 clamp(1.8rem, 4.5vw, 2.8rem); display: grid; gap: clamp(1.4rem, 2.8vw, 2rem); max-width: 46rem; }
+.phero__in .crumb { margin-bottom: clamp(0.4rem, 2vw, 1.1rem); }
 .phero > .phero__in > p { color: var(--on-dark-mid); font-size: var(--fs-lead); max-width: 46ch; line-height: 1.66; }
-.phero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: clamp(1.1rem, 2.8vw, 2rem); }
+
+/* service pages — split: text + photo */
+.phero__grid { display: grid; grid-template-columns: 1.05fr 0.9fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding: clamp(2.8rem, 6vw, 4.6rem) 0 clamp(1.8rem, 4vw, 2.6rem); }
+.phero__grid:last-child { padding-bottom: clamp(2.8rem, 6vw, 4.6rem); }
+.phero__col { display: grid; gap: clamp(1.2rem, 2.5vw, 1.85rem); align-content: center; }
+.phero__lead { color: var(--on-dark-mid); font-size: var(--fs-lead); line-height: 1.62; max-width: 44ch; }
+.phero__media { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 3; box-shadow: 0 34px 64px -30px rgba(0,0,0,0.6); }
+.phero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.phero__media::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); background: radial-gradient(120% 120% at 50% 40%, transparent 60%, rgba(14,19,16,0.32) 100%); }
+@media (max-width: 820px) {
+  .phero__grid, .phero__grid:last-child { grid-template-columns: 1fr; gap: 1.6rem; padding-block: clamp(2.4rem, 7vw, 3.4rem); }
+  .phero__media { aspect-ratio: 16 / 9; }
+}
 
 /* ---------- stats (graphic hairline grid) ---------- */
 .stats { background: var(--dark); color: var(--on-dark); }
