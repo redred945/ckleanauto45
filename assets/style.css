@@ -232,8 +232,9 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
 .also a:hover { color: var(--green-ink); }
 
 /* ---------- services ---------- */
-.svc { display: flex; flex-direction: column; border: 2px solid var(--green); background: var(--bg); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; transition: transform .2s ease, box-shadow .2s ease, border-color .18s ease; }
-.svc:hover { transform: translateY(-4px); box-shadow: 0 0 0 3px rgba(47,158,68,0.15), 0 22px 46px -26px rgba(20,26,22,0.42); }
+.svc { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--line-strong); background: var(--bg); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; transition: transform .22s ease, box-shadow .22s ease, border-color .18s ease; }
+.svc:hover { border-color: var(--green); transform: translateY(-6px) scale(1.012); box-shadow: 0 0 0 3px rgba(47,158,68,0.18), 0 30px 60px -22px rgba(20,26,22,0.5); z-index: 3; }
+@media (prefers-reduced-motion: reduce) { .svc:hover { transform: none; } }
 .svc__img { aspect-ratio: 3 / 2; background: var(--bg-2); overflow: hidden; }
 .svc__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
 .svc:hover .svc__img img { transform: scale(1.05); }
@@ -245,8 +246,7 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
 
 /* bento layout (home): one tall lead card + three compact rows */
 .svc-bento { display: grid; grid-template-columns: 1.32fr 1fr; gap: 1.1rem; }
-.svc-bento .svc--lead { grid-row: span 3; box-shadow: 0 16px 40px -30px rgba(47,158,68,0.5); }
-.svc-bento .svc--lead:hover { box-shadow: 0 0 0 3px rgba(47,158,68,0.15), 0 26px 52px -26px rgba(20,26,22,0.42); }
+.svc-bento .svc--lead { grid-row: span 3; }
 .svc-bento .svc--lead .svc__img { aspect-ratio: 4 / 3; }
 .svc-bento .svc--lead .svc__body { padding: 1.3rem 1.4rem 1.5rem; }
 .svc-bento .svc--lead .svc__body h3 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); }
