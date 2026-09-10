@@ -1,4 +1,11 @@
 (function () {
+  var bar = document.querySelector('header.bar');
+  if (bar) {
+    var onScroll = function () { bar.classList.toggle('is-float', window.scrollY > 14); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   var b = document.getElementById('burger'), n = document.getElementById('nav');
   if (b && n) {
     b.addEventListener('click', function () {

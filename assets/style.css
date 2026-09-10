@@ -73,8 +73,20 @@ a:focus-visible, .btn:focus-visible, button:focus-visible, summary:focus-visible
 @media (prefers-reduced-motion: reduce) { .reveal-on .reveal { transform: none !important; transition: none; } }
 
 /* ---------- header (dark) ---------- */
-header.bar { position: sticky; top: 0; z-index: 40; background: rgba(14,19,16,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); }
-.bar__in { display: flex; align-items: center; gap: 1.5rem; padding-block: 0.7rem; }
+header.bar { position: sticky; top: 0; z-index: 40; background: rgba(14,19,16,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); transition: background .25s ease, border-color .25s ease, padding .25s ease; }
+.bar__in { display: flex; align-items: center; gap: 1.5rem; padding-block: 0.7rem; transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, border-radius .25s ease, max-width .25s ease, padding .25s ease; }
+/* detached / floating once the page is scrolled */
+header.bar.is-float { background: transparent; border-bottom-color: transparent; padding-top: 0.6rem; }
+header.bar.is-float .bar__in {
+  background: rgba(14,19,16,0.94);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  box-shadow: 0 16px 38px -14px rgba(0,0,0,0.55);
+  max-width: min(var(--maxw), 100% - 1.6rem);
+  padding-inline: clamp(0.9rem, 2.5vw, 1.5rem);
+  padding-block: 0.5rem;
+}
+@media (prefers-reduced-motion: reduce) { header.bar, .bar__in { transition: none; } }
 .bar__brand { display: flex; align-items: center; text-decoration: none; margin-right: auto; }
 .bar__brand img { height: 44px; width: auto; }
 .bar__nav { display: flex; gap: 1.7rem; }
@@ -93,6 +105,7 @@ header.bar { position: sticky; top: 0; z-index: 40; background: rgba(14,19,16,0.
   .bar__in { gap: 0.9rem; }
   .bar__nav.is-open { display: flex; flex-direction: column; gap: 0; position: absolute; left: 0; right: 0; top: 100%; background: var(--dark); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.4rem var(--pad) 1rem; }
   .bar__nav.is-open a { padding-block: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  header.bar.is-float .bar__nav.is-open { left: 0.8rem; right: 0.8rem; margin-top: 0.3rem; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding-inline: 1.1rem; }
 }
 @media (max-width: 560px) { .bar__tel { display: none; } .bar__brand img { height: 38px; } }
 
