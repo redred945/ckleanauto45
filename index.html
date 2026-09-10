@@ -116,10 +116,11 @@
 
   a:focus-visible, .btn:focus-visible, button:focus-visible { outline: 2px solid var(--green-hi); outline-offset: 3px; }
 
-  /* reveal — progressive: only active when JS adds .js to <html> */
-  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-  .js .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1 !important; transform: none !important; transition: none; } }
+  /* reveal — progressive: only active when JS adds .reveal-on to <html>.
+     A load-time failsafe forces every .reveal visible, so content is never stuck hidden. */
+  .reveal-on .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal-on .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal-on .reveal { opacity: 1 !important; transform: none !important; transition: none; } }
 
   /* ---------- header ---------- */
   header.bar { position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
@@ -630,7 +631,6 @@
 <a class="call-fab" href="tel:+33651943179">Appeler — 06 51 94 31 79</a>
 
 <script>
-  document.documentElement.classList.add('js');
   (function () {
     var b = document.getElementById('burger'), n = document.getElementById('nav');
     if (b && n) {
@@ -642,18 +642,26 @@
         if (e.target.tagName === 'A') { n.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); }
       });
     }
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var items = document.querySelectorAll('.reveal');
-    if (reduce || !('IntersectionObserver' in window)) {
-      items.forEach(function (el) { el.classList.add('in'); });
-      return;
-    }
+
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    var showAll = function () { items.forEach(function (el) { el.classList.add('in'); }); };
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduce || !('IntersectionObserver' in window)) { showAll(); return; }
+
+    document.documentElement.classList.add('reveal-on');
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    items.forEach(function (el) { io.observe(el); });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    items.forEach(function (el) {
+      // anything already within the first viewport reveals immediately
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) { el.classList.add('in'); }
+      else { io.observe(el); }
+    });
+    // hard failsafe: nothing stays hidden more than ~1.4s after load
+    window.addEventListener('load', function () { setTimeout(showAll, 1400); });
   })();
 </script>
 
