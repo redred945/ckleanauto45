@@ -309,6 +309,16 @@ footer { background: var(--dark); color: var(--on-dark-mid); padding-block: 2.6r
 .foot a { color: var(--on-dark); text-decoration: none; }
 .foot a:hover { color: #fff; }
 
-/* ---------- mobile call FAB ---------- */
-.call-fab { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--green); color: #fff; text-align: center; text-decoration: none; font-family: var(--ff-display); font-weight: 800; font-size: 1rem; padding: 0.95rem; letter-spacing: 0.03em; box-shadow: 0 -6px 20px rgba(0,0,0,0.16); }
-@media (max-width: 640px) { .call-fab { display: block; } body { padding-bottom: 3.5rem; } }
+/* ---------- mobile call FAB (detached bubble, bottom-right) ---------- */
+.call-fab {
+  display: none; position: fixed; right: 0.9rem; bottom: 0.9rem; z-index: 50;
+  align-items: center; gap: 0.5em;
+  background: var(--green); color: #fff; text-decoration: none;
+  font-family: var(--ff-display); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.02em;
+  padding: 0.85rem 1.25rem; border-radius: 999px;
+  box-shadow: 0 10px 26px -6px rgba(0,0,0,0.4), 0 0 0 4px rgba(47,158,68,0.16);
+}
+.call-fab svg { width: 17px; height: 17px; fill: currentColor; }
+.call-fab:active { transform: scale(0.97); }
+@media (max-width: 640px) { .call-fab { display: inline-flex; } body { padding-bottom: 4.5rem; } }
+@media (prefers-reduced-motion: reduce) { .call-fab:active { transform: none; } }
