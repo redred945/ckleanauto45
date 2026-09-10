@@ -262,6 +262,23 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
   .svc-bento .svc--row { flex-direction: column; }
   .svc-bento .svc--row .svc__img { width: 100%; aspect-ratio: 3 / 2; }
 }
+/* phones: swipeable slider instead of a tall stack */
+@media (max-width: 640px) {
+  .svc-bento {
+    display: flex; grid-template-columns: none;
+    gap: 0.85rem; padding-bottom: 0.4rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .svc-bento::-webkit-scrollbar { display: none; }
+  .svc-bento > .svc { flex: 0 0 86%; scroll-snap-align: start; }
+  .svc-bento > .svc:hover { transform: none; box-shadow: none; z-index: auto; }
+  .svc-bento .svc--row { flex-direction: column; }
+  .svc-bento .svc--row .svc__img,
+  .svc-bento .svc--lead .svc__img { width: 100%; aspect-ratio: 16 / 10; }
+  .svc-bento .svc--lead .svc__body { padding: 1.1rem 1.2rem 1.3rem; }
+}
 
 /* ---------- why / split ---------- */
 .why { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(1.5rem, 3.5vw, 2.75rem); align-items: center; }
