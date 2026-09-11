@@ -237,25 +237,43 @@
       </div>
       <form class="estim reveal" id="estim">
         <div class="estim__fields">
-          <fieldset class="estim__group">
-            <legend>Formule intérieur</legend>
-            <label class="opt"><input type="radio" name="formule" value="simple" checked /> <span>Intérieur simple</span><b>dès 50 €</b></label>
-            <label class="opt"><input type="radio" name="formule" value="shampoing" /> <span>Intérieur + shampoing vapeur</span><b>dès 70 €</b></label>
+          <fieldset class="estim__group is-open">
+            <legend class="estim__ghead" role="button" tabindex="0" aria-expanded="true">
+              <span class="estim__gtitle">01 · Formule</span>
+              <span class="estim__gsummary"></span>
+              <span class="estim__gchev" aria-hidden="true">›</span>
+            </legend>
+            <div class="estim__gbody">
+              <label class="opt"><input type="radio" name="formule" value="simple" checked /> <span>Intérieur simple</span><b>dès 50 €</b></label>
+              <label class="opt"><input type="radio" name="formule" value="shampoing" /> <span>Intérieur + shampoing vapeur</span><b>dès 70 €</b></label>
+            </div>
           </fieldset>
           <fieldset class="estim__group">
-            <legend>Votre véhicule</legend>
-            <label class="opt"><input type="radio" name="vehicule" value="0" checked /> <span>Citadine · cabine utilitaire</span></label>
-            <label class="opt"><input type="radio" name="vehicule" value="10" /> <span>SUV · break</span></label>
-            <label class="opt"><input type="radio" name="vehicule" value="20" /> <span>4×4 · monospace 5 places</span></label>
-            <label class="opt"><input type="radio" name="vehicule" value="30" /> <span>4×4 · monospace 7 places</span></label>
+            <legend class="estim__ghead" role="button" tabindex="0" aria-expanded="false">
+              <span class="estim__gtitle">02 · Véhicule</span>
+              <span class="estim__gsummary"></span>
+              <span class="estim__gchev" aria-hidden="true">›</span>
+            </legend>
+            <div class="estim__gbody">
+              <label class="opt"><input type="radio" name="vehicule" value="0" checked /> <span>Citadine · cabine utilitaire</span></label>
+              <label class="opt"><input type="radio" name="vehicule" value="10" /> <span>SUV · break</span></label>
+              <label class="opt"><input type="radio" name="vehicule" value="20" /> <span>4×4 · monospace 5 places</span></label>
+              <label class="opt"><input type="radio" name="vehicule" value="30" /> <span>4×4 · monospace 7 places</span></label>
+            </div>
           </fieldset>
           <fieldset class="estim__group">
-            <legend>Options</legend>
-            <label class="opt"><input type="checkbox" name="opt" value="5" /> <span>Siège bébé</span><b>+5 €</b></label>
-            <label class="opt"><input type="checkbox" name="opt" value="10" /> <span>Plafonnier &amp; pare-soleil</span><b>+10 €</b></label>
-            <label class="opt"><input type="checkbox" name="opt" value="15" /> <span>Bloc moteur</span><b>+15 €</b></label>
-            <label class="opt"><input type="checkbox" name="opt" value="20" /> <span>Jantes ×4</span><b>+20 €</b></label>
-            <label class="opt"><input type="checkbox" name="opt" value="30" /> <span>Shampoing vapeur 4 sièges</span><b>+30 €</b></label>
+            <legend class="estim__ghead" role="button" tabindex="0" aria-expanded="false">
+              <span class="estim__gtitle">03 · Options</span>
+              <span class="estim__gsummary"></span>
+              <span class="estim__gchev" aria-hidden="true">›</span>
+            </legend>
+            <div class="estim__gbody">
+              <label class="opt"><input type="checkbox" name="opt" value="5" /> <span>Siège bébé</span><b>+5 €</b></label>
+              <label class="opt"><input type="checkbox" name="opt" value="10" /> <span>Plafonnier &amp; pare-soleil</span><b>+10 €</b></label>
+              <label class="opt"><input type="checkbox" name="opt" value="15" /> <span>Bloc moteur</span><b>+15 €</b></label>
+              <label class="opt"><input type="checkbox" name="opt" value="20" /> <span>Jantes ×4</span><b>+20 €</b></label>
+              <label class="opt"><input type="checkbox" name="opt" value="30" /> <span>Shampoing vapeur 4 sièges</span><b>+30 €</b></label>
+            </div>
           </fieldset>
         </div>
         <aside class="estim__result">

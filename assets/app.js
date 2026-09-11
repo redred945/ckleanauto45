@@ -56,6 +56,50 @@
     estim.addEventListener('change', calc);
     calc();
 
+    // accordion steps: pick an option → collapse this step, open the next one;
+    // click a past (collapsed) step to reopen it and change your mind
+    var estimGroups = Array.prototype.slice.call(estim.querySelectorAll('.estim__group'));
+    if (estimGroups.length) {
+      var summarizeGroup = function (group) {
+        var out2 = group.querySelector('.estim__gsummary');
+        if (!out2) return;
+        var checked = Array.prototype.slice.call(group.querySelectorAll('input:checked'));
+        if (!checked.length) { out2.textContent = ''; return; }
+        var labels = checked.map(function (c) {
+          var wrap = c.closest('.opt');
+          var span = wrap && wrap.querySelector('span');
+          return span ? span.textContent.trim() : '';
+        });
+        out2.textContent = labels.length > 2 ? (labels.slice(0, 2).join(', ') + '…') : labels.join(', ');
+      };
+      var openGroup = function (target) {
+        estimGroups.forEach(function (g) {
+          var open = g === target;
+          g.classList.toggle('is-open', open);
+          var head = g.querySelector('.estim__ghead');
+          if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      };
+      estimGroups.forEach(function (g, i) {
+        summarizeGroup(g);
+        var head = g.querySelector('.estim__ghead');
+        if (head) {
+          var toggle = function () { if (!g.classList.contains('is-open')) openGroup(g); };
+          head.addEventListener('click', toggle);
+          head.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+          });
+        }
+        g.addEventListener('change', function (e) {
+          summarizeGroup(g);
+          if (e.target.type === 'radio' && g.classList.contains('is-open')) {
+            var next = estimGroups[i + 1];
+            if (next) openGroup(next);
+          }
+        });
+      });
+    }
+
     // "Demander ce devis" — carry the configuration to the contact form
     var estimCta = document.getElementById('estimCta');
     if (estimCta) {
@@ -162,6 +206,46 @@
     n.addEventListener('click', function (e) {
       if (e.target.tagName === 'A') { n.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); }
     });
+  }
+
+  // hide the "Appeler" bubble once the footer (which already shows the number) is on screen
+  var fab = document.querySelector('.call-fab');
+  var footerEl = document.querySelector('footer');
+  if (fab && footerEl && 'IntersectionObserver' in window) {
+    var fabIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { fab.classList.toggle('is-hidden', en.isIntersecting); });
+    }, { rootMargin: '0px', threshold: 0 });
+    fabIo.observe(footerEl);
+  }
+
+  // stats strip on mobile: auto-advances on its own, pauses briefly if the visitor swipes it
+  var statsGrid = document.querySelector('.stats__grid');
+  if (statsGrid) {
+    var statsReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var statsIsMobile = function () { return window.matchMedia('(max-width: 640px)').matches; };
+    var statsTimer = null;
+    var stopStatsAuto = function () { if (statsTimer) { clearInterval(statsTimer); statsTimer = null; } };
+    var startStatsAuto = function () {
+      if (statsTimer || statsReduced || !statsIsMobile()) return;
+      statsTimer = setInterval(function () {
+        var tiles = statsGrid.querySelectorAll('.stat');
+        var w = statsGrid.clientWidth;
+        if (!tiles.length || !w) return;
+        var idx = Math.round(statsGrid.scrollLeft / w);
+        var nextIdx = (idx + 1) % tiles.length;
+        statsGrid.scrollTo({ left: nextIdx * w, behavior: 'smooth' });
+      }, 2800);
+    };
+    startStatsAuto();
+    var statsResumeTimeout;
+    var pauseStatsAuto = function () {
+      stopStatsAuto();
+      clearTimeout(statsResumeTimeout);
+      statsResumeTimeout = setTimeout(startStatsAuto, 4000);
+    };
+    statsGrid.addEventListener('pointerdown', pauseStatsAuto);
+    statsGrid.addEventListener('touchstart', pauseStatsAuto, { passive: true });
+    window.addEventListener('resize', function () { stopStatsAuto(); startStatsAuto(); });
   }
 
   var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));

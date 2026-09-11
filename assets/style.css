@@ -478,7 +478,8 @@ footer { background: var(--dark); color: var(--on-dark-mid); padding-block: 2.1r
 }
 .call-fab svg { width: 17px; height: 17px; fill: currentColor; }
 .call-fab:active { transform: scale(0.97); }
-@media (max-width: 640px) { .call-fab { display: inline-flex; } body { padding-bottom: 4.5rem; } }
+.call-fab.is-hidden { display: none; }
+@media (max-width: 640px) { .call-fab { display: inline-flex; } main { padding-bottom: 4.5rem; } }
 @media (prefers-reduced-motion: reduce) { .call-fab:active { transform: none; } }
 
 /* ---------- splash screen (home) ---------- */
@@ -510,9 +511,20 @@ footer { background: var(--dark); color: var(--on-dark-mid); padding-block: 2.1r
 
 /* ---------- price simulator ---------- */
 .estim { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(1.5rem, 3vw, 2.6rem); align-items: start; }
-.estim__fields { display: grid; gap: 1.5rem; }
-.estim__group { border: 0; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-.estim__group legend { font-family: var(--ff-body); font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.35rem; padding: 0; }
+.estim__fields { display: grid; gap: 0.9rem; }
+
+/* accordion steps: one group open at a time, pick → advance, click a past step to go back */
+.estim__group { margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--bg); overflow: hidden; }
+.estim__ghead { display: flex; align-items: center; gap: 0.8rem; width: 100%; padding: 1rem 1.25rem; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+.estim__ghead:focus-visible { outline: 2px solid var(--green-hi); outline-offset: -2px; }
+.estim__gtitle { flex: none; font-family: var(--ff-body); font-weight: 700; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+.estim__group.is-open .estim__gtitle { color: var(--green-ink); }
+.estim__gsummary { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+.estim__gchev { flex: none; color: var(--green); font-size: 1.2rem; line-height: 1; transition: transform .2s ease; }
+.estim__group.is-open .estim__gchev { transform: rotate(90deg); }
+.estim__group.is-open .estim__ghead { border-bottom: 1px solid var(--line); }
+.estim__gbody { display: grid; gap: 0.55rem; padding: 1rem 1.25rem 1.25rem; }
+.estim__group:not(.is-open) .estim__gbody { display: none; }
 .opt { display: flex; align-items: center; gap: 0.75rem; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 0.72rem 1.15rem; cursor: pointer; font-size: 0.92rem; transition: border-color .15s ease, box-shadow .15s ease; }
 .opt:hover { border-color: var(--line-strong); }
 .opt input { accent-color: var(--green); width: 1.05rem; height: 1.05rem; flex: none; margin: 0; }
@@ -529,3 +541,34 @@ footer { background: var(--dark); color: var(--on-dark-mid); padding-block: 2.1r
 .estim__tel { font-size: 0.85rem; color: var(--on-dark-mid); text-decoration: none; text-align: center; }
 .estim__tel:hover { color: var(--on-dark); }
 @media (max-width: 860px) { .estim { grid-template-columns: 1fr; } .estim__result { position: static; } }
+
+/* ---------- mobile: turn the remaining card rows into sliders ---------- */
+@media (max-width: 640px) {
+  .steps, .price-grid, .guarantees {
+    display: flex; grid-template-columns: none; align-items: stretch;
+    gap: 0.9rem; padding-bottom: 0.4rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .steps::-webkit-scrollbar, .price-grid::-webkit-scrollbar, .guarantees::-webkit-scrollbar { display: none; }
+  .steps > .step { flex: 0 0 78%; scroll-snap-align: start; }
+  .price-grid > .price { flex: 0 0 88%; scroll-snap-align: start; }
+  .guarantees > .g { flex: 0 0 78%; scroll-snap-align: start; }
+
+  /* reviews & service cards: equal height, text capped so no card is left with a big empty gap */
+  .reviews { align-items: stretch; }
+  .review p { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .svc-bento { align-items: stretch; }
+  .svc-bento .svc--lead .svc__body h3 { font-size: 1rem; }
+  .svc-bento .svc__body p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* stats: one metric at a time, auto-advances on its own (see app.js) */
+  .stats__grid {
+    display: flex; grid-template-columns: none;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .stats__grid::-webkit-scrollbar { display: none; }
+  .stats__grid > .stat { flex: 0 0 100%; scroll-snap-align: start; }
+}
