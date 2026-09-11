@@ -444,6 +444,7 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
 .cform__status:empty { display: none; }
 .cform__status.is-ok { color: var(--green-ink); }
 .cform__status.is-err { color: #c0392b; }
+.cform__status.is-info { color: var(--mid); }
 .cform__legal { font-size: 0.78rem; color: var(--mid); max-width: 46ch; }
 
 .contact-side { display: grid; gap: 0; align-content: start; }

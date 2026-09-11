@@ -55,12 +55,64 @@
     };
     estim.addEventListener('change', calc);
     calc();
+
+    // "Demander ce devis" — carry the configuration to the contact form
+    var estimCta = document.getElementById('estimCta');
+    if (estimCta) {
+      var optLabel = function (input) {
+        var wrap = input && input.closest('.opt');
+        var span = wrap && wrap.querySelector('span');
+        return span ? span.textContent.trim() : '';
+      };
+      estimCta.addEventListener('click', function () {
+        var f = estim.querySelector('input[name="formule"]:checked');
+        var v = estim.querySelector('input[name="vehicule"]:checked');
+        var opts = Array.prototype.map.call(estim.querySelectorAll('input[name="opt"]:checked'), optLabel).filter(Boolean);
+        var shampoing = f && f.value === 'shampoing';
+        var prestation = shampoing ? 'Nettoyage intérieur + shampoing vapeur' : 'Nettoyage intérieur';
+        var vehLabel = optLabel(v);
+        var lines = [
+          'Bonjour,',
+          '',
+          'Je souhaite un devis à partir de l’estimation en ligne :',
+          '• Formule : ' + optLabel(f),
+          '• Véhicule : ' + vehLabel
+        ];
+        if (opts.length) lines.push('• Options : ' + opts.join(', '));
+        lines.push('• Estimation affichée : ' + (out ? out.textContent : '') + ' €');
+        lines.push('', 'Merci de me recontacter pour convenir d’un créneau.');
+        try {
+          sessionStorage.setItem('ck_devis', JSON.stringify({
+            prestation: prestation, vehicule: vehLabel, message: lines.join('\n')
+          }));
+        } catch (e) {}
+      });
+    }
   }
 
   // contact form — posts to Web3Forms once a key is set, otherwise opens the mail app
   var cform = document.getElementById('cform');
   if (cform) {
     var cstatus = document.getElementById('cformStatus');
+
+    // pre-fill from the home price simulator, if the visitor came from "Demander ce devis"
+    try {
+      var devis = sessionStorage.getItem('ck_devis');
+      if (devis) {
+        sessionStorage.removeItem('ck_devis');
+        var d = JSON.parse(devis);
+        var sel = cform.elements['prestation'];
+        if (sel && d.prestation) {
+          for (var oi = 0; oi < sel.options.length; oi++) {
+            if (sel.options[oi].text === d.prestation) { sel.selectedIndex = oi; break; }
+          }
+        }
+        if (cform.elements['vehicule'] && d.vehicule) cform.elements['vehicule'].value = d.vehicule;
+        if (cform.elements['message'] && d.message) cform.elements['message'].value = d.message;
+        if (cstatus) { cstatus.className = 'cform__status is-info'; cstatus.textContent = 'Demande pré-remplie d’après votre estimation — ajoutez votre nom et votre téléphone.'; }
+      }
+    } catch (e) {}
+
     var val = function (name) { var el = cform.elements[name]; return el ? String(el.value || '').trim() : ''; };
     var mailtoFallback = function () {
       var body = 'Nom : ' + val('nom') +
