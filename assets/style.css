@@ -380,23 +380,28 @@ section { padding-block: clamp(2.75rem, 5.5vw, 4.75rem); }
 .rating-head .big { font-family: var(--ff-display); font-weight: 900; font-size: 3rem; line-height: 1; letter-spacing: -0.03em; }
 .rating-head .stars { font-size: 1.35rem; }
 .rating-head .src { font-size: 0.85rem; color: var(--mid); }
-.reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 2.4vw, 2rem); }
-.review { border: 1px solid var(--line); border-radius: 14px; padding: clamp(1.7rem, 3vw, 2.2rem); display: grid; gap: 1.1rem; align-content: start; background: var(--bg); }
+/* reviews = a slider: 3 cards in view, the rest behind a visible track */
+.reviews {
+  --rev-gap: clamp(1.1rem, 2vw, 1.7rem);
+  display: flex; align-items: flex-start; gap: var(--rev-gap);
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.9rem;
+  scrollbar-width: thin; scrollbar-color: var(--green) var(--line);
+}
+.reviews::-webkit-scrollbar { height: 6px; }
+.reviews::-webkit-scrollbar-track { background: var(--line); border-radius: 999px; }
+.reviews::-webkit-scrollbar-thumb { background: var(--green); border-radius: 999px; }
+.reviews > .review { flex: 0 0 30%; scroll-snap-align: start; }
+.review { margin: 0; border: 1px solid var(--line); border-radius: 14px; padding: clamp(1.5rem, 2.6vw, 2rem); display: grid; gap: 1.1rem; align-content: start; background: var(--bg); }
 .review .stars { font-size: 0.95rem; }
 .review p { font-size: 0.97rem; line-height: 1.68; }
 .review cite { font-style: normal; font-size: 0.8rem; font-weight: 700; color: var(--mid); letter-spacing: 0.03em; padding-top: 0.2rem; border-top: 1px solid var(--line); }
-@media (max-width: 900px) { .reviews { grid-template-columns: 1fr; } }
-/* phones: reviews become a swipeable slider */
+@media (max-width: 900px) { .reviews > .review { flex-basis: 45%; } }
 @media (max-width: 640px) {
-  .reviews {
-    display: flex; grid-template-columns: none; align-items: flex-start;
-    gap: 0.85rem; padding-bottom: 0.4rem;
-    overflow-x: auto; overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
+  .reviews { scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 0.4rem; }
   .reviews::-webkit-scrollbar { display: none; }
-  .reviews > .review { flex: 0 0 87%; scroll-snap-align: start; }
+  .reviews > .review { flex-basis: 87%; }
 }
 
 /* ---------- faq ---------- */
