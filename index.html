@@ -109,6 +109,7 @@
         <div class="stat"><b>100<span class="u">%</span></b><span>à domicile ou sur le lieu de travail</span></div>
         <div class="stat"><b>9<span class="u">ans</span></b><span>de protection céramique Gtechniq</span></div>
       </div>
+      <div class="stats__dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span></div>
     </div>
   </section>
 
@@ -245,7 +246,7 @@
               <span class="estim__gchev" aria-hidden="true">›</span>
             </div>
             <div class="estim__gbody">
-              <label class="opt"><input type="radio" name="formule" value="simple" checked /> <span>Intérieur simple</span><b>dès 50 €</b></label>
+              <label class="opt"><input type="radio" name="formule" value="simple" /> <span>Intérieur simple</span><b>dès 50 €</b></label>
               <label class="opt"><input type="radio" name="formule" value="shampoing" /> <span>Intérieur + shampoing vapeur</span><b>dès 70 €</b></label>
             </div>
           </fieldset>
@@ -257,13 +258,13 @@
               <span class="estim__gchev" aria-hidden="true">›</span>
             </div>
             <div class="estim__gbody">
-              <label class="opt"><input type="radio" name="vehicule" value="0" checked /> <span>Citadine · cabine utilitaire</span></label>
+              <label class="opt"><input type="radio" name="vehicule" value="0" /> <span>Citadine · cabine utilitaire</span></label>
               <label class="opt"><input type="radio" name="vehicule" value="10" /> <span>SUV · break</span></label>
               <label class="opt"><input type="radio" name="vehicule" value="20" /> <span>4×4 · monospace 5 places</span></label>
               <label class="opt"><input type="radio" name="vehicule" value="30" /> <span>4×4 · monospace 7 places</span></label>
             </div>
           </fieldset>
-          <fieldset class="estim__group">
+          <fieldset class="estim__group estim__group--list">
             <legend class="sr-only">Options</legend>
             <div class="estim__ghead" role="button" tabindex="0" aria-expanded="false">
               <span class="estim__gtitle">03 · Options</span>
@@ -281,7 +282,7 @@
         </div>
         <aside class="estim__result">
           <p class="estim__rlabel">Votre estimation</p>
-          <p class="estim__price"><span id="estimPrice">50</span> €<small>prix indicatif TTC, hors déplacement</small></p>
+          <p class="estim__price"><span id="estimPrice">—</span> €<small>prix indicatif TTC, hors déplacement</small></p>
           <p class="estim__note">Le tarif définitif est confirmé au devis, selon l'état réel du véhicule (poils d'animaux, taches anciennes, véhicule très encrassé).</p>
           <a class="btn btn--lg" id="estimCta" href="contact.html">Demander ce devis</a>
           <a class="estim__tel" href="tel:+33651943179">ou nous appeler au 06 51 94 31 79</a>

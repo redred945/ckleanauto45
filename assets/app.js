@@ -48,8 +48,9 @@
     var calc = function () {
       var f = estim.querySelector('input[name="formule"]:checked');
       var v = estim.querySelector('input[name="vehicule"]:checked');
-      var total = (f && f.value === 'shampoing') ? 70 : 50;
-      total += v ? Number(v.value) : 0;
+      if (!f || !v) { if (out) out.textContent = '—'; return; }
+      var total = (f.value === 'shampoing') ? 70 : 50;
+      total += Number(v.value);
       Array.prototype.forEach.call(estim.querySelectorAll('input[name="opt"]:checked'), function (c) { total += Number(c.value); });
       if (out) out.textContent = total;
     };
@@ -221,6 +222,10 @@
   // stats strip on mobile: auto-advances on its own, pauses briefly if the visitor swipes it
   var statsGrid = document.querySelector('.stats__grid');
   if (statsGrid) {
+    var statsDots = Array.prototype.slice.call(document.querySelectorAll('.stats__dots span'));
+    var setActiveDot = function (idx) {
+      statsDots.forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
+    };
     var statsReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var statsIsMobile = function () { return window.matchMedia('(max-width: 640px)').matches; };
     var statsTimer = null;
@@ -245,6 +250,15 @@
     };
     statsGrid.addEventListener('pointerdown', pauseStatsAuto);
     statsGrid.addEventListener('touchstart', pauseStatsAuto, { passive: true });
+    // keep the dots in sync whether the strip moved on its own or was swiped
+    var statsScrollTimeout;
+    statsGrid.addEventListener('scroll', function () {
+      clearTimeout(statsScrollTimeout);
+      statsScrollTimeout = setTimeout(function () {
+        var w = statsGrid.clientWidth;
+        if (w) setActiveDot(Math.round(statsGrid.scrollLeft / w));
+      }, 80);
+    }, { passive: true });
     window.addEventListener('resize', function () { stopStatsAuto(); startStatsAuto(); });
   }
 

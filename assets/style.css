@@ -200,6 +200,9 @@ header.bar.is-float .bar__cta { padding-block: 0.68rem; padding-inline: 1.25rem;
 .stat b { display: flex; align-items: baseline; gap: 0.1em; font-family: var(--ff-display); font-weight: 900; font-size: clamp(2.4rem, 4.8vw, 3.7rem); letter-spacing: -0.035em; line-height: 0.9; font-variant-numeric: tabular-nums; }
 .stat b .u { color: var(--green-hi); font-size: 0.42em; letter-spacing: 0; }
 .stat span { display: block; font-size: 0.82rem; color: var(--on-dark-mid); letter-spacing: 0.01em; max-width: 20ch; }
+.stats__dots { display: none; justify-content: center; gap: 0.5rem; padding-top: 1rem; }
+.stats__dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); transition: background .2s ease, transform .2s ease; }
+.stats__dots span.is-active { background: var(--green-hi); transform: scale(1.35); }
 @media (max-width: 720px) { .stats__grid { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- section scaffold ---------- */
@@ -480,7 +483,7 @@ footer { background: var(--dark); color: var(--on-dark-mid); padding-block: 2.1r
 .call-fab svg { width: 17px; height: 17px; fill: currentColor; }
 .call-fab:active { transform: scale(0.97); }
 .call-fab.is-hidden { display: none; }
-@media (max-width: 640px) { .call-fab { display: inline-flex; } main { padding-bottom: 4.5rem; } }
+@media (max-width: 640px) { .call-fab { display: inline-flex; } }
 @media (prefers-reduced-motion: reduce) { .call-fab:active { transform: none; } }
 
 /* ---------- splash screen (home) ---------- */
@@ -572,4 +575,12 @@ footer { background: var(--dark); color: var(--on-dark-mid); padding-block: 2.1r
   }
   .stats__grid::-webkit-scrollbar { display: none; }
   .stats__grid > .stat { flex: 0 0 100%; scroll-snap-align: start; }
+  .stats__dots { display: flex; }
+
+  /* options: a compact divided list instead of five separate pills — mobile only */
+  .estim__group--list .estim__gbody { gap: 0; }
+  .estim__group--list .opt { border: 0; border-radius: 0; border-bottom: 1px solid var(--line); padding: 0.7rem 0.1rem; background: transparent; }
+  .estim__group--list .opt:last-child { border-bottom: 0; }
+  .estim__group--list .opt:has(input:checked) { box-shadow: none; }
+  .estim__group--list .opt:has(input:checked) span { color: var(--green-ink); font-weight: 600; }
 }
